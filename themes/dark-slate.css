@@ -1,13 +1,15 @@
 /* @theme dark-slate */
 @import 'default';
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
+  /* Palette shared with the website (ink slate surfaces + keeper teal). */
   --color-background: #1e293b;
-  --color-foreground: #e2e8f0;
-  --color-highlight: #38bdf8;
-  --color-header: #94a3b8;
-  --color-header-text: #e2e8f0;
+  --color-foreground: #dde3ea;
+  --color-highlight: #2dd4bf;
+  --color-header: #9aa7b8;
+  --color-header-text: #dde3ea;
+  --color-border: #3d4b60;
 }
 
 section {
@@ -23,14 +25,23 @@ section a {
 section h1,
 section h2,
 section h3 {
-  color: #f8fafc;
-  font-family: 'Space Grotesk', sans-serif;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Roman inscriptional capitals for the wordmark, as on the website. */
+section h1 {
+  font-family: 'Cormorant SC', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 section strong {
   color: var(--color-highlight);
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 section code,
@@ -67,12 +78,19 @@ section.screens li img {
   object-fit: cover;
   object-position: top left;
   margin-bottom: 10px;
-  border: 1px solid #334155;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
 }
 
 section.screens > p {
   margin-top: 32px;
   font-size: 0.5em;
+  color: var(--color-header);
+}
+
+/* A paragraph that is entirely italic is a side note: small and muted. */
+section p > em:only-child {
+  display: block;
+  font-size: 0.6em;
   color: var(--color-header);
 }
