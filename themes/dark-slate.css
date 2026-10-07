@@ -94,3 +94,54 @@ section p > em:only-child {
   font-size: 0.6em;
   color: var(--color-header);
 }
+
+/* Single-slide pitch, plain markdown only: h1 + tagline in the left column,
+   the four following paragraphs stacked in the right one. */
+section.pitch {
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  grid-template-rows: repeat(4, auto);
+  column-gap: 48px;
+  align-content: center;
+  padding: 48px 56px;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+section.pitch h1 {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: end;
+  font-size: 3em;
+  margin: 0 0 0.3em;
+}
+
+section.pitch p:nth-of-type(1) {
+  grid-column: 1;
+  grid-row: 3 / span 2;
+  align-self: start;
+  margin: 0;
+  font-size: 1.35em;
+  line-height: 1.35;
+}
+
+section.pitch p:nth-of-type(1) strong {
+  color: var(--color-foreground);
+}
+
+section.pitch p:nth-of-type(n + 2) {
+  grid-column: 2;
+  margin: 0;
+  padding: 0 0 0.9em 32px;
+  border-left: 3px solid var(--color-highlight);
+}
+
+section.pitch p:nth-of-type(2) { grid-row: 1; }
+section.pitch p:nth-of-type(3) { grid-row: 2; }
+section.pitch p:nth-of-type(4) { grid-row: 3; }
+section.pitch p:nth-of-type(5) {
+  grid-row: 4;
+  padding-bottom: 0;
+  font-weight: 500;
+  color: var(--color-highlight);
+}
