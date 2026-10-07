@@ -5,11 +5,18 @@ const path = require('path');
 const distDir = path.join(__dirname, '..', 'dist');
 const presentationsDir = path.join(__dirname, '..', 'presentations');
 
+// A deck is a dist/<name>/ folder holding slides.html or one slides.<lang>.html per language.
+const slidesOf = (name) =>
+  fs
+    .readdirSync(path.join(distDir, name))
+    .filter((file) => /^slides(\.[a-z]{2})?\.html$/.test(file))
+    .sort();
+
 const decks = fs
   .readdirSync(distDir, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
-  .filter((name) => fs.existsSync(path.join(distDir, name, 'slides.html')))
+  .filter((name) => slidesOf(name).length > 0)
   .sort();
 
 // Reuse a deck's logo as the site-wide brand logo, since there's no separate
@@ -22,7 +29,15 @@ if (logoDeck) {
 const items = decks
   .map((name) => {
     const title = name.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-    return `      <li><a href="${name}/slides.html">${title}</a></li>`;
+    const files = slidesOf(name);
+    if (files.length === 1 && files[0] === 'slides.html') {
+      return `      <li><a href="${name}/slides.html">${title}</a></li>`;
+    }
+    const links = files.map((file) => {
+      const lang = file.match(/^slides\.([a-z]{2})\.html$/)[1].toUpperCase();
+      return `<a href="${name}/${file}">${lang}</a>`;
+    });
+    return `      <li>${title}: ${links.join(' | ')}</li>`;
   })
   .join('\n');
 

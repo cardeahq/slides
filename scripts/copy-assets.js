@@ -15,7 +15,7 @@ for (const entry of fs.readdirSync(presentationsDir, { withFileTypes: true })) {
   if (!fs.existsSync(outDir)) continue;
 
   for (const file of fs.readdirSync(srcDir)) {
-    if (file === 'slides.md') continue;
+    if (file.endsWith('.md')) continue;
 
     const srcFile = path.join(srcDir, file);
     if (fs.statSync(srcFile).isFile()) {
